@@ -30,10 +30,10 @@ You will also need a word2vec model. I highly recommend the [Google News](https:
 On the server machine (which could be your development machine or could be a remote server) run the server script:
 
 ```
-python -m wordserve -p 5000 --host 0.0.0.0 /path/to/GoogleNews-vectors-negative300.bin.gz
+python -m wordserve -p 5000 --host 0.0.0.0 /path/to/GoogleNews-vectors-negative300.bin.gz -w
 ```
 
-The script will use gensim's `Word2Vec.load_word2vec_format()` to load the vectors. It will assume that the file is binary if it finds a .bin or a .gz suffix.
+The script will use gensim's `Word2Vec` model to load the vectors. If it encounters the `-w` argument it will try and use `load_word2vec_format()` to load a Google word2vec compatible model. It will assume that the file is binary if it finds a .bin or a .gz suffix. If you do not pass `-w` then it will just use the normal `load()` method for a gensim model.
 
 
 ### Setting up the client/application
