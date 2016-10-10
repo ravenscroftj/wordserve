@@ -26,6 +26,7 @@ def main():
     ap.add_argument("--host", dest="host", action="store", default="localhost", help="The host to bind to, defaults to localhost")
     ap.add_argument("-p", "--port", dest="port", action="store", help="The port to serve on, defaults to 5000", default=5000)
     ap.add_argument("-d", "--debug", dest="debug", action="store_true", help="If true, provides debug output")
+    ap.add_argument("-w", "--word2vec", dest="word2vec", action="store_true", help="If set then treat file as Google word2vec format")
     
     args = ap.parse_args()
     

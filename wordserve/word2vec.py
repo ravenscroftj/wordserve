@@ -27,8 +27,22 @@ class FlaskWord2Vec(object):
         app.config.setdefault('WORD2VEC_FILE_BINARY', True)
 
             
-        self._wv[app.config['WORD2VEC_FILE']] = Word2Vec.load_word2vec_format(app.config['WORD2VEC_FILE'], 
-                            binary=app.config['WORD2VEC_FILE_BINARY'])
+        #import time
+            
+        #start = time.time()
+        
+        if app.config['MODEL_TYPE'] == "word2vec":
+            self._wv[app.config['WORD2VEC_FILE']] = Word2Vec.load_word2vec_format(app.config['WORD2VEC_FILE'], 
+                                binary=app.config['WORD2VEC_FILE_BINARY'])
+        else:
+            self._wv[app.config['WORD2VEC_FILE']] = Word2Vec.load(app.config['WORD2VEC_FILE'])
+        #end = time.time()
+        
+       # print(end-start)
+        
+        #print("init sims")
+        
+        #self._wv[app.config['WORD2VEC_FILE']].init_sims(replace=True)
             
 
     @property
