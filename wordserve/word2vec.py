@@ -31,7 +31,7 @@ class FlaskWord2Vec(object):
             
         #start = time.time()
         
-        if app.config['MODEL_TYPE'] == "word2vec":
+        if app.config['IS_WORD2VEC_NATIVE']:
             self._wv[app.config['WORD2VEC_FILE']] = Word2Vec.load_word2vec_format(app.config['WORD2VEC_FILE'], 
                                 binary=app.config['WORD2VEC_FILE_BINARY'])
         else:

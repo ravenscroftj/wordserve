@@ -45,6 +45,8 @@ def main():
     
     app.config['WORD2VEC_FILE'] = args.vector_file
     
+    app.config['IS_WORD2VEC_NATIVE'] = args.word2vec
+    
     if args.vector_file.endswith(".bin") or args.vector_file.endswith(".gz"):
         app.config['WORD2VEC_FILE_BINARY'] = True
     
