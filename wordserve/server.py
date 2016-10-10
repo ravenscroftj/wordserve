@@ -117,11 +117,26 @@ def similarity(word1,word2):
     _wv = w2v.word2vec
     return jsonify(similarity=_wv.similarity(word1,word2))
 
+@word_server_bp.route("/batch_similarity",methods=['GET'])
+def batch_similarity():
+    _wv = w2v.word2vec
+    wordMap = {}
+    words = request.args['words']
+    pairs = words.split(',')
+    for eachPair in pairs:
+        p = eachPair.split('-')
+        try :
+            similarity = _wv.similarity(p[0],p[1])
+        except KeyError:
+            similarity = 0
+        wordMap.update({eachPair:similarity})
+    return jsonify(wordMap)
+
 
 @word_server_bp.route("/n_similarity", methods=['GET'])
 def n_similarity():
     _wv = w2v.word2vec
-    return jsonify(similarity=_wv.n_similarity((request.args.getlist('ws1'),request.args.getlist('ws2'))))
+    return jsonify(similarity=_wv.n_similarity(request.args.getlist('ws1'),request.args.getlist('ws2')))
 
 @word_server_bp.route("/doesnt_match", methods=['GET'])
 def doesnt_match():
