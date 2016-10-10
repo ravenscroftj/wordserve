@@ -14,6 +14,13 @@ class Word2VecProxy:
     def __init__(self, url):
         self.url = url
         
+    def __contains__(self, index):
+        res = np.asarray(requests.get("{}/vector?word={}".format(self.url,quote(index))).json()['wordvectors'][index])
+        
+        if np.sum(res) == 0:
+            return False
+        else:
+            return True
         
     def __getitem__(self, index):
         return np.asarray(requests.get("{}/vector?word={}".format(self.url,quote(index))).json()['wordvectors'][index])
@@ -49,9 +56,6 @@ class Word2VecProxy:
         r = requests.get("{}/similarity?{}&{}".format(self.url, quote(ws1_qs), quote(ws2_qs)))
         
         return r.json()['similarity']
-    
-    
-    
     
     
     def doesnt_match(self, words):

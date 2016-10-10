@@ -129,4 +129,34 @@ def doesnt_match():
         
     return jsonify(doesnt_match=_wv.doesnt_match(request.args.getlist('word')))
 
+
+@word_server_bp.route("/benchmark", methods=['GET'])
+def benchmark():
+    import time
+    _wv = w2v.word2vec
+    
+    w2vdesc = "An estimated 90% of all data is unstructured and the amount of it is increasing at a daunting rate across our ever more connected world. Unlocking the value of big data is one of the biggest challenges for businesses today. Fortunately a new age of AI and cognitive computing is upon us which can help us make sense of unstructured data like never before."
+        
+    start = time.time()
+    
+    for x in w2vdesc.split(" "):
+        if x in _wv:
+            vec = _wv[x]
+        
+    end = time.time()
+    wordtest = end - start
+    
+    
+    start = time.time()
+    
+    for word in w2vdesc.split(" "):
+        if x in _wv:
+            _wv.similar_by_word(word)
+    
+    end = time.time()#
+    simtest = end-start
+    
+    
+    return jsonify(wordtest=wordtest, similar = simtest)
+
     
